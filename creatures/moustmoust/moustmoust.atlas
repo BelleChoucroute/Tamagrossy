@@ -1,0 +1,6 @@
+images {
+  image: "/creatures/moustmoust/moustmoust_egg.png"
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0

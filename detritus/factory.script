@@ -1,0 +1,46 @@
+local detritus = {"bandage","battery","tissu"}
+local positions = {
+	{450, 175}, -- 1
+	{500, 150}, -- 2
+	{600, 125}, -- 3
+	{550, 110}, -- 4
+	{380, 100}, -- 5
+	{410, 130}, -- 6
+	{470, 105}  -- 7
+}
+local frequency = 0.5
+local max_detritus = 3
+
+function init(self)
+	self.timer = 1 / frequency
+	self.nb_detritus = 0
+	-- "Randomise" random
+	math.randomseed(os.time())
+	math.random(); math.random(); math.random()
+end
+
+function update(self, dt)
+	self.timer = self.timer - dt
+
+	if self.timer <= 0 then
+		if self.nb_detritus < max_detritus then
+			self.timer = 1 / frequency
+
+			local p = go.get_position()
+			local c = math.random(table.getn(positions))
+			p.x = positions[c][1]
+			p.y = positions[c][2]
+			p.z = 1
+
+			self.d = math.random(table.getn(detritus))
+			self.item = detritus[self.d]
+			local component = "#" .. self.item .. "_factory"
+			factory.create(component, p)
+
+			self.nb_detritus = self.nb_detritus + 1
+			if self.nb_detritus == 3 then -- optimisation: message from each item script
+				self.nb_detritus = 0
+			end
+		end
+	end
+end

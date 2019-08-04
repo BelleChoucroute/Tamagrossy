@@ -1,0 +1,12 @@
+images {
+  image: "/detritus/battery.png"
+}
+images {
+  image: "/detritus/bandage.png"
+}
+images {
+  image: "/detritus/tissu.png"
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0

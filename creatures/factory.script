@@ -1,0 +1,17 @@
+local creatures = {"cubeurkhoppus", "moustmoust"}
+
+function init(self)
+	-- "Randomise random"
+	math.randomseed(os.time())
+	math.random(); math.random(); math.random()
+
+	local p = go.get_position()
+	p.x = 360
+	p.y = 250
+	p.z = 1
+
+	self.c = math.random(table.getn(creatures))
+	self.creature = creatures[self.c]
+	local component = "#" .. self.creature .. "_factory"
+	factory.create(component, p)
+end
