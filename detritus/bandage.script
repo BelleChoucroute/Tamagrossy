@@ -1,6 +1,10 @@
 local max_time = 5
 local food = 1
 
+function init(self)
+	msg.post(".", "acquire_input_focus")
+end
+
 function update(self, dt)
 	self.timer = timer.delay(max_time, true, function()
 		go.delete()
@@ -8,4 +12,8 @@ function update(self, dt)
 end
 
 function on_input(self, action_id, action)
+	if action_id == hash("click") and action.pressed == true then
+		msg.post("/instance0", "food", { food })
+		go.delete()
+	end
 end
