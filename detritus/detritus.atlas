@@ -7,6 +7,12 @@ images {
 images {
   image: "/detritus/tissu.png"
 }
+images {
+  image: "/detritus/chewinggum.png"
+}
+images {
+  image: "/detritus/can.png"
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0

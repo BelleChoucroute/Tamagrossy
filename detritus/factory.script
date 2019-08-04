@@ -1,4 +1,4 @@
-local detritus = {"bandage","battery","tissu"}
+local detritus = {"bandage", "battery", "tissu", "can", "chewinggum"}
 local positions = {
 	{450, 175}, -- 1
 	{500, 150}, -- 2
