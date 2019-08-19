@@ -1,0 +1,37 @@
+local cursor = require "in.cursor"
+
+local max_time = 5
+go.property("food_value", 1)
+go.property("food_type", hash("normal"))
+
+function use(self)
+	go.cancel_animations(".", "scale.x")
+	go.cancel_animations(".", "scale.y")
+	go.set_scale(self.initial_scale)
+	local scale = go.get_scale()
+	go.set_scale(scale * 1.2)
+	go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, scale.x, go.EASING_OUTELASTIC, 0.8)
+	go.animate(".", "scale.y", go.PLAYBACK_ONCE_FORWARD, scale.y, go.EASING_OUTELASTIC, 0.8, 0, function()
+		go.set_scale(self.initial_scale)
+	end)
+end
+
+function init(self)
+	self.initial_scale = go.get_scale()
+end
+	
+function update(self, dt)
+	self.timer = timer.delay(max_time, true, function()
+		go.delete()
+	end)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == cursor.PRESSED then
+		use(self)
+		msg.post("/instance0", "food", { food_value = self.food_value })
+	end
+	if message_id == cursor.RELEASED then
+		go.delete(".")
+	end
+end

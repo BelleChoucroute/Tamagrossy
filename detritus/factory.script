@@ -1,13 +1,5 @@
-local detritus = {"bandage", "battery", "tissu", "can", "chewinggum"}
-local positions = {
-	{450, 175}, -- 1
-	{500, 150}, -- 2
-	{600, 125}, -- 3
-	{550, 110}, -- 4
-	{380, 100}, -- 5
-	{410, 130}, -- 6
-	{470, 105}  -- 7
-}
+local detritus = require "detritus.list"
+local positions = require "detritus.positions"
 local frequency = 0.5
 local max_detritus = 3
 

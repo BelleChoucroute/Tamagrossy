@@ -1,0 +1,23 @@
+local cursor = require "in.cursor"
+local creatures = require "creatures.list"
+
+go.property("name_id", 2)
+
+function init(self)
+	self.isEgg = true
+	self.food = 0
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("food") then
+		if not self.isEgg then
+			self.food = self.food + message["food_value"]
+			print(self.food)
+		end
+	end
+
+	if message_id == cursor.RELEASED and self.isEgg then
+		msg.post("#sprite", "play_animation", { id = hash(creatures[self.name_id] .. "_lvl_1") })
+		self.isEgg = false
+	end
+end
