@@ -1,6 +1,6 @@
 components {
-  id: "moustmoust"
-  component: "/creatures/moustmoust/moustmoust.script"
+  id: "creature"
+  component: "/creatures/creature.script"
   position {
     x: 0.0
     y: 0.0
@@ -11,6 +11,11 @@ components {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+  properties {
+    id: "name_id"
+    value: "2.0"
+    type: PROPERTY_TYPE_NUMBER
   }
 }
 embedded_components {
@@ -41,8 +46,8 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"default\"\n"
-  "mask: \"default\"\n"
+  "group: \"creature\"\n"
+  "mask: \"cursor\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

@@ -1,4 +1,4 @@
-local creatures = {"cubeurkhoppus", "moustmoust"}
+local creatures = require "creatures.list"
 
 function init(self)
 	-- "Randomise random"

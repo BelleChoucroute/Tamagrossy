@@ -1,6 +1,6 @@
 components {
   id: "battery"
-  component: "/detritus/battery.script"
+  component: "/detritus/detritus.script"
   position {
     x: 0.0
     y: 0.0
@@ -41,8 +41,8 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"default\"\n"
-  "mask: \"default\"\n"
+  "group: \"battery\"\n"
+  "mask: \"cursor\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
