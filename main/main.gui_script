@@ -1,0 +1,15 @@
+local max_values = require "creatures.max_values"
+
+function init(self)
+	self.food = 0
+	self.food_node = gui.get_node("food")
+end
+
+function on_message(self, message_id, message)
+	if message_id == hash("food") then
+		if self.food < max_values.HUNGER then
+			self.food = self.food + message["food_value"]
+			gui.set_text(self.food_node, self.food .. "/" .. max_values.HUNGER)
+		end
+	end
+end

@@ -30,6 +30,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == cursor.PRESSED then
 		use(self)
 		msg.post("/instance0", "food", { food_value = self.food_value })
+		msg.post("/main", "food", { food_value = self.food_value })
 	end
 	if message_id == cursor.RELEASED then
 		go.delete(".")

@@ -170,7 +170,7 @@ function update(self, dt)
 	--
 	-- DRAG
 	--
-	if self.drag and self.state.pressed and not self.state.dragging then
+	--[[ if self.drag and self.state.pressed and not self.state.dragging then
 		local distance = vmath.length(pos - self.state.pressed_pos)
 		if distance >= self.drag_threshold then
 			self.state.dragging = true
@@ -180,7 +180,7 @@ function update(self, dt)
 
 	if self.state.dragging then
 		go.set_position(pos - self.state.pressed_offset, self.state.pressed_id)
-	end
+	end --]]
 
 	self.collision_id = nil
 	self.collision_group = nil
