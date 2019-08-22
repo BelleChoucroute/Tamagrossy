@@ -1,0 +1,11 @@
+local M = {}
+
+M.LEVEL = 5
+M.EXPERIENCE = 5
+M.LIFE = 5
+
+M.HAPPINESS = 6
+M.HYDRATION = 6
+M.HUNGER = 6
+
+return M
