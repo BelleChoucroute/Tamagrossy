@@ -1,8 +1,10 @@
 local cursor = require "in.cursor"
+local detritus = require "detritus.list"
 
 local max_time = 5
 go.property("food_value", 1)
 go.property("food_type", hash("normal"))
+go.property("position_id", 1)
 
 function use(self)
 	go.cancel_animations(".", "scale.x")
@@ -35,4 +37,8 @@ function on_message(self, message_id, message, sender)
 	if message_id == cursor.RELEASED then
 		go.delete(".")
 	end
+end
+
+function final(self)
+	msg.post(hash("/detritus_factory"), "destroy_detritus", { position_id = self.position_id })
 end

@@ -2,6 +2,22 @@ local detritus = require "detritus.list"
 local positions = require "detritus.positions"
 local frequency = 0.5
 local max_detritus = 3
+local spawned_detritus = {}
+
+function spawn_detritus(position)
+	position_id = math.random(table.getn(positions))
+
+	if spawned_detritus[position_id] == false then
+		position.x = positions[position_id][1]
+		position.y = positions[position_id][2]
+		position.z = 1
+		spawned_detritus[position_id] = true
+
+		return { position, position_id }
+	else
+		return spawn_detritus(position)
+	end
+end
 
 function init(self)
 	self.timer = 1 / frequency
@@ -9,6 +25,10 @@ function init(self)
 	-- "Randomise" random
 	math.randomseed(os.time())
 	math.random(); math.random(); math.random()
+
+	for i = 1, table.getn(positions) do
+		spawned_detritus[i] = false
+	end
 end
 
 function update(self, dt)
@@ -18,21 +38,25 @@ function update(self, dt)
 		if self.nb_detritus < max_detritus then
 			self.timer = 1 / frequency
 
-			local p = go.get_position()
-			local c = math.random(table.getn(positions))
-			p.x = positions[c][1]
-			p.y = positions[c][2]
-			p.z = 1
+			local position = go.get_position()
+			local p = spawn_detritus(position)
 
 			self.d = math.random(table.getn(detritus))
-			self.item = detritus[self.d]
+			self.item = detritus[self.d]	
 			local component = "#" .. self.item .. "_factory"
-			factory.create(component, p)
-
+			--local new_detritus = factory.create(component, p[1], nil, { position_id = p[2], item = d })
+			factory.create(component, p[1], nil, { position_id = p[2] })
+			
 			self.nb_detritus = self.nb_detritus + 1
-			if self.nb_detritus == 3 then -- optimisation: message from each item script
+			if self.nb_detritus == 3 then
 				self.nb_detritus = 0
 			end
 		end
+	end
+end
+
+function on_message(self, message_id, message)
+	if message_id == hash("destroy_detritus") then
+		spawned_detritus[message["position_id"]] = false
 	end
 end
