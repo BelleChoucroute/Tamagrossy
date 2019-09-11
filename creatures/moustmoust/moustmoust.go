@@ -17,6 +17,11 @@ components {
     value: "2.0"
     type: PROPERTY_TYPE_NUMBER
   }
+  properties {
+    id: "hatch_nb_clicks"
+    value: "3.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 embedded_components {
   id: "sprite"

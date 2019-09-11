@@ -1,23 +1,47 @@
 local cursor = require "in.cursor"
 local creatures = require "creatures.list"
+local max_values = require "creatures.max_values"
 
-go.property("name_id", 2)
+go.property("name_id", 1)
+go.property("hatch_nb_clicks", 1)
 
 function init(self)
-	self.isEgg = true
-	self.food = 0
+	self.level = 0
+	self.experience = 0
+	self.health = 0
+	self.c = 0
+
+	self.happiness = 0
+	self.hydration = 0
+	self.hunger = 0
+end
+
+function update(self)
+	-- Leveling
+
+	-- Leveling up
+	if self.experience == max_values.EXPERIENCE then
+		-- animations
+		self.level = self.level + 1
+		self.experience = 0
+	end
 end
 
 function on_message(self, message_id, message, sender)
+	-- Feeding
 	if message_id == hash("food") then
-		if not self.isEgg then
-			self.food = self.food + message["food_value"]
-			print(self.food)
+		if self.level > 0 then
+			self.hunger = self.hunger + message["food_value"]
 		end
 	end
 
-	if message_id == cursor.RELEASED and self.isEgg then
-		msg.post("#sprite", "play_animation", { id = hash(creatures[self.name_id] .. "_lvl_1") })
-		self.isEgg = false
+	-- Hatching
+	if message_id == cursor.RELEASED and self.level == 0 then
+		if self.c == self.hatch_nb_clicks - 1 then
+			msg.post("#sprite", "play_animation", { id = hash(creatures[self.name_id] .. "_lvl_1") })
+			self.level = 1
+		else
+			self.c = self.c + 1
+		end
 	end
 end

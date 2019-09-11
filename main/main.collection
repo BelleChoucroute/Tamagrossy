@@ -1,6 +1,6 @@
 name: "main"
 instances {
-  id: "facotry"
+  id: "creature_factory"
   prototype: "/creatures/facotry.go"
   position {
     x: 0.0
@@ -20,7 +20,7 @@ instances {
   }
 }
 instances {
-  id: "factory"
+  id: "detritus_factory"
   prototype: "/detritus/factory.go"
   position {
     x: 0.0
